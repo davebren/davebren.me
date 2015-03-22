@@ -1,2 +1,2 @@
 # davebren.me
-Personal Website
+Check out the gh-pages branch to look at the site's source.
