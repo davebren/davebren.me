@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Text Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #222;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #9ab3ff;
+            text-align: center;
+        }
+        .container {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+        .output {
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 15px;
+            min-height: 150px;
+            background-color: #2a2a2a;
+        }
+        .instructions {
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Text Formatter</h1>
+    <div class="container">
+        <h2 style="color: #9ab3ff;">Type your text below:</h2>
+        <textarea id="textInput" placeholder="Type your text here..."></textarea>
+        
+        <h2 style="color: #9ab3ff;">Formatted output:</h2>
+        <div id="formattedOutput" class="output"></div>
+        
+        <div class="instructions">
+            <h3 style="color: #9ab3ff;">Text Display:</h3>
+            <ul>
+                <li>Use double line breaks for paragraphs</li>
+                <li>Single line breaks are preserved</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            const formattedOutput = document.getElementById('formattedOutput');
+            
+            function formatText(text) {
+                // Replace line breaks with HTML paragraphs
+                let formatted = text.replace(/\n\n/g, '</p><p>');
+                formatted = '<p>' + formatted + '</p>';
+                
+                // Fix single line breaks
+                formatted = formatted.replace(/\n/g, '<br>');
+                
+                return formatted;
+            }
+            
+            textInput.addEventListener('input', function() {
+                formattedOutput.innerHTML = formatText(this.value);
+            });
+            
+            // Initialize with placeholder text
+            textInput.value = "This is the first paragraph.\n\nThis is the second paragraph.\n\nThis line has a\nsingle line break.";
+            formattedOutput.innerHTML = formatText(textInput.value);
+        });
+    </script>
+</body>
+</html>
